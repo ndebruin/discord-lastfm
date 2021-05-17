@@ -31,7 +31,7 @@
     "Terraria Soundtrack Volume 1": "terraria_soundtrack_volume_1",
     "Terraria Soundtrack Volume 2": "terraria_soundtrack_volume_2",
     "Terraria Soundtrack Volume 3": "terraria_soundtrack_volume_3",
-    "Terraria Soundtrack Volume 4": "terraria_soundtrack_volume_4",
+    "Terraria Official Soundtrack Volume 4": "terraria_soundtrack_volume_4",
     "Portal": "portal",
     "Portal 2: Songs to Test By - Volume 1": "portal_2",
     "Portal 2: Songs to Test By - Volume 2": "portal_2",
