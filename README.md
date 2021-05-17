@@ -1,7 +1,5 @@
 # lastfm
 
-the groundwork for adding last.fm rich presence to gevin2.0
+this was originally going to introduce it to the bot, hence the repo name, but things have since changed.
 
-https://discordpy.readthedocs.io/en/latest/api.html#discord.Client.change_presence
-
-activity=discord.Activity(type=discord.ActivityType.listening, name=title, assets={"large_image": names_dict[album_name], "large_text": album_name, "small_image": names_dict[album_name], "small_text": album_name})
+this will now be using pypresence, and will do that instead.
