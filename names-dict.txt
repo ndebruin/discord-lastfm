@@ -14,7 +14,7 @@
     "Strangely Arousing": "strangely_arousing",
     
     "Almost Tropical EP": "almost_tropical_ep",
-    "Heaven Force Early Fall EP": "None",
+    "Heaven Force Early Fall EP": "heaven_force_early_fall_ep",
     
     "Oncle Jazz": "oncle_jazz",
     "Retro Grooves, Vol. 3": "retro_grooves_vol_3",
