@@ -38,7 +38,5 @@ def format_lastfm():
     if album_name == "":
         album_name = "Cupcake Landers"
 
-    print("{}({}) - {}".format(album_name, names_dict[album_name], title))
+    #print("{}({}) - {}".format(album_name, names_dict[album_name], title))
     return album_name, names_dict[album_name], title
-
-format_lastfm()
