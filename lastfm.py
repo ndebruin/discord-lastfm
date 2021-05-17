@@ -2,7 +2,7 @@
 
 from os import getenv
 from requests import get
-import json
+from json import loads as json_loads
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -24,7 +24,7 @@ def lastfm_get():
     response = get('https://ws.audioscrobbler.com/2.0/', headers=headers, params=payload)
     return response
 
-names_dict = json.loads(open('names-dict.txt', 'r').read())
+names_dict = json_loads(open('names-dict.txt', 'r').read())
 
 response = dict(lastfm_get().json())
 #is there a better way to do this than this mess below? probably, but this works
