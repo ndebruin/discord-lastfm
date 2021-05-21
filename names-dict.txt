@@ -9,7 +9,8 @@
     "Marvin's Marvelous Mechanical Museum": "marvins_marvelous_mechanical_museum",
     
     "1981 Extended Play": "1981_extended_play",
-
+    "RAZZMATAZZ": "razzmatazz",
+ 
     "Airplanes": "airplanes",
     "Rain": "rain",
     "Extended Play": "extended_play",
