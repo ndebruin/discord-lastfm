@@ -8,6 +8,8 @@
     "Good and Evil": "good_and_evil",
     "Marvin's Marvelous Mechanical Museum": "marvins_marvelous_mechanical_museum",
     
+    "1981 Extended Play": "1981_extended_play",
+
     "Airplanes": "airplanes",
     "Rain": "rain",
     "Extended Play": "extended_play",
