@@ -1,0 +1,42 @@
+{
+    'recenttracks': {
+        '@attr': {
+            'page': '1',
+            'total': '1782',
+            'user': '<USER>',
+            'perPage': '2',
+            'totalPages': '891'
+            },
+        'track': [
+            {
+                'artist': {'mbid': '2b948e66-5269-4311-a89d-3f1126960f9b', '#text': 'Aperture Science Psychoacoustics Laboratory'},
+                'album': {'mbid': '', '#text': 'Portal 2: Songs to Test By - Volume 2'},
+                'image': [
+                    {'size': 'small', '#text': 'https://lastfm.freetls.fastly.net/i/u/34s/fa0ad484fe084df2ba812c8aa6b217a2.png'},
+                    {'size': 'medium', '#text': 'https://lastfm.freetls.fastly.net/i/u/64s/fa0ad484fe084df2ba812c8aa6b217a2.png'},
+                    {'size': 'large', '#text': 'https://lastfm.freetls.fastly.net/i/u/174s/fa0ad484fe084df2ba812c8aa6b217a2.png'},
+                    {'size': 'extralarge', '#text': 'https://lastfm.freetls.fastly.net/i/u/300x300/fa0ad484fe084df2ba812c8aa6b217a2.png'}
+                    ],
+                'streamable': '0',
+                'date': {'uts': '1621711036', '#text': '22 May 2021, 19:17'},
+                'url': 'https://www.last.fm/music/Aperture+Science+Psychoacoustics+Laboratory/_/Bots+Build+Bots',
+                'name': 'Bots Build Bots',
+                'mbid': ''
+            },
+            {
+                'artist': {'mbid': '', '#text': 'Aporia'},
+                'album': {'mbid': '', '#text': 'Heaven Force Early Fall EP'},
+                'image': [
+                    {'size': 'small', '#text': 'https://lastfm.freetls.fastly.net/i/u/34s/2a96cbd8b46e442fc41c2b86b821562f.png'},
+                    {'size': 'medium', '#text': 'https://lastfm.freetls.fastly.net/i/u/64s/2a96cbd8b46e442fc41c2b86b821562f.png'},
+                    {'size': 'large', '#text': 'https://lastfm.freetls.fastly.net/i/u/174s/2a96cbd8b46e442fc41c2b86b821562f.png'},
+                    {'size': 'extralarge', '#text': 'https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png'}
+                ],
+                'streamable': '0',
+                'date': {'uts': '1621710790', '#text': '22 May 2021, 19:13'},
+                'url': 'https://www.last.fm/music/Aporia/_/First+Nail+in+the+Coffin+ft.+Fazerdaze',
+                'name': 'First Nail in the Coffin ft. Fazerdaze', 'mbid': ''
+            }
+        ]
+    }
+}

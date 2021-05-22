@@ -12,6 +12,10 @@ load_dotenv()
 
 #otherwise python gets mad
 old_title = ""
+previous_title_old = ""
+old_album = ""
+old_asset = ""
+paused_counter = 0
 
 #connect to discord client
 RPC = Presence(getenv("DISCORD"))
@@ -27,7 +31,7 @@ def lastfm():
         'method': 'user.getrecenttracks',
         'user': str(getenv("LASTFM_USER")),
         'nowplaying': 'true',
-        'limit': '1',
+        'limit': '2',
         'format': 'json'
     }
 
@@ -39,26 +43,70 @@ def lastfm():
     nowplaying = response["recenttracks"]["track"][0]
     album_name = nowplaying["album"]["#text"]
     title = nowplaying["name"]
-    
+    previous_title = response["recenttracks"]["track"][1]["name"]
+
     if album_name == "":
         album_name = "Cupcake Landers"
 
-    return album_name, names_dict[album_name], title
+    if previous_title == "":
+        previous_title = "Cupcake Landers"
+    
+    print(response)
+    #print("request completed")
+    return album_name, names_dict[album_name], title, previous_title
 
 #keep program constantly running
 while True:
+    sleep(15)
     #get new data from last.fm
-    album_name, asset_name, title = lastfm()
+    album_name, asset_name, title, previous_title = lastfm()
+    print(title)
+    print(old_title)
 
-    #if track is same as track from previous check, do not update
-    if old_title == title:
-        continue
-
-    else:
-        #update RPC with title of song, start time, and album art + name
-        RPC.update(state="Listening to {}".format(title), start=time(), 
+    if old_title == "":
+        #update RPC with title of song, playing status, start time, and album art + album name
+        RPC.update(state="Listening to {}".format(title), details="Playing", start=time(), 
         large_image=asset_name, large_text=album_name, 
         small_image='lollypop', small_text="Lollypop Music Player")
         old_title = title
+        old_album = album_name
+        old_asset = asset_name
+        print("edge case")
+        continue
 
-    sleep(15)
+    if old_title != title and old_title == previous_title:
+        #update RPC with title of song, playing status, start time, and album art + album name
+        RPC.update(state="Listening to {}".format(title), details="Playing", start=time(), 
+        large_image=asset_name, large_text=album_name, 
+        small_image='lollypop', small_text="Lollypop Music Player")
+        old_title = title
+        old_album = album_name
+        old_asset = asset_name
+        print("new track")
+        continue
+        
+    elif old_title != title and old_title != previous_title and paused_counter == 20:
+        RPC.clear()
+        paused_counter = 0
+        print("rich presence stopped")
+        continue
+
+    elif old_title != title and old_title != previous_title:
+        #assume paused track
+        #update RPC to reflect paused status
+        RPC.update(state="Listening to {}".format(old_title), details="Paused", end=time(), 
+        large_image=old_asset, large_text=old_album, 
+        small_image='lollypop', small_text="Lollypop Music Player")
+        #iterate paused counter for five minute timeout
+        paused_counter = paused_counter + 1
+        print("paused status")
+        continue
+
+    #if track is same as track from previous check, do not update
+    if old_title == title:
+        print("same track")
+        continue
+
+    else:
+        RPC.clear()
+        continue
