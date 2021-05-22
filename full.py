@@ -12,13 +12,13 @@ load_dotenv()
 
 #otherwise python gets mad
 old_title = ""
-
+paused_counter = 0
 
 #connect to discord client
 RPC = Presence(getenv("DISCORD"))
 RPC.connect()
 
-def lastfm():
+def lastfm(verbose):
     headers = {
         'user-agent': 'currently_playing_viewer'
     }
@@ -51,13 +51,18 @@ def lastfm():
 
     if album_name == "":
         album_name = "Cupcake Landers"
-
-    return album_name, names_dict[album_name], title, artist, playing_status
+    
+    if verbose == 1:
+        return response
+    elif verbose == 0:
+        return album_name, names_dict[album_name], title, artist, playing_status
+    else:
+        return album_name, names_dict[album_name], title, artist, playing_status
 
 #keep program constantly running
 while True:
     #get new data from last.fm
-    album_name, asset_name, title, artist, playing_status = lastfm()
+    album_name, asset_name, title, artist, playing_status = lastfm(0)
     sleep(15)
 
     if old_title == "": #edge case
@@ -68,7 +73,7 @@ while True:
         old_title = title
         continue
 
-    if old_title != title and playing_status == True:
+    elif old_title != title and playing_status == True:
         #update RPC with title of song, playing status, start time, and album art + album name
         RPC.update(state="By {}".format(artist), details=title,
         large_image=asset_name, large_text=album_name, 
@@ -81,9 +86,12 @@ while True:
         continue
 
     #if track is same as track from previous check, do not update
-    if old_title == title:
+    elif old_title == title:
         continue
 
     else:
-        RPC.clear()
+        RPC.update(state="By {}".format(artist), details=title,
+        large_image=asset_name, large_text=album_name, 
+        small_image='lollypop', small_text="Lollypop Music Player")
+        old_title = title
         continue
