@@ -1,0 +1,43 @@
+{
+    'recenttracks': {
+        '@attr': {
+            'page': '1',
+            'total': '1773',
+            'user': 'draigon0',
+            'perPage': '1',
+            'totalPages': '1773'
+            },
+        'track': [
+            {
+                'artist': {'mbid': '91ae77d8-3bb5-4e59-98a7-532ac0f2825d', '#text': 'I DONT KNOW HOW BUT THEY FOUND ME'},
+                '@attr': {'nowplaying': 'true'},
+                'mbid': '3fea04c6-1c68-4721-95ae-e72359ca2108',
+                'album': {'mbid': '24180cde-11bf-4344-812b-1460e71838e6', '#text': '1981 Extended Play'},
+                'streamable': '0',
+                'url': 'https://www.last.fm/music/I+DONT+KNOW+HOW+BUT+THEY+FOUND+ME/_/Bleed+Magic',
+                'name': 'Bleed Magic',
+                'image': [
+                    {'size': 'small', '#text': 'https://lastfm.freetls.fastly.net/i/u/34s/fb625266b3cf18853a21f3358d7b938d.png'},
+                    {'size': 'medium', '#text': 'https://lastfm.freetls.fastly.net/i/u/64s/fb625266b3cf18853a21f3358d7b938d.png'},
+                    {'size': 'large', '#text': 'https://lastfm.freetls.fastly.net/i/u/174s/fb625266b3cf18853a21f3358d7b938d.png'},
+                    {'size': 'extralarge', '#text': 'https://lastfm.freetls.fastly.net/i/u/300x300/fb625266b3cf18853a21f3358d7b938d.png'}
+                    ]
+            },
+            {
+                'artist': {'mbid': '46b51b9c-5e12-437f-942b-706aab80d378', '#text': 'Scott Lloyd Shelly'},
+                'album': {'mbid': '', '#text': 'Terraria Soundtrack Volume 2'},
+                'image': [
+                    {'size': 'small', '#text': 'https://lastfm.freetls.fastly.net/i/u/34s/45026dcc4384412ba963e4945b25062d.png'},
+                    {'size': 'medium', '#text': 'https://lastfm.freetls.fastly.net/i/u/64s/45026dcc4384412ba963e4945b25062d.png'},
+                    {'size': 'large', '#text': 'https://lastfm.freetls.fastly.net/i/u/174s/45026dcc4384412ba963e4945b25062d.png'},
+                    {'size': 'extralarge', '#text': 'https://lastfm.freetls.fastly.net/i/u/300x300/45026dcc4384412ba963e4945b25062d.png'}
+                    ],
+                'streamable': '0',
+                'date': {'uts': '1621703713', '#text': '22 May 2021, 17:15'},
+                'url': 'https://www.last.fm/music/Scott+Lloyd+Shelly/_/Eclipse',
+                'name': 'Eclipse',
+                'mbid': '3ae5678e-3bf6-4990-b96d-802345d9e5f3'
+            }
+        ]
+    }
+}

@@ -40,3 +40,34 @@ def format_lastfm():
 
     #print("{}({}) - {}".format(album_name, names_dict[album_name], title))
     return album_name, names_dict[album_name], title
+
+
+def lastfm():
+    headers = {
+        'user-agent': 'currently_playing_viewer'
+    }
+
+    payload = {
+        'api_key': str(getenv("KEY")),
+        'method': 'user.getrecenttracks',
+        'user': str(getenv("LASTFM_USER")),
+        'nowplaying': 'true',
+        'limit': '1',
+        'format': 'json'
+    }
+
+    response = get('https://ws.audioscrobbler.com/2.0/', headers=headers, params=payload)
+
+
+    names_dict = json_loads(open('names-dict.txt', 'r').read())
+
+    response = dict(lastfm_get().json())
+    nowplaying = response["recenttracks"]["track"][0]
+    album_name = nowplaying["album"]["#text"]
+    title = nowplaying["name"]
+    
+    if album_name == "":
+        album_name = "Cupcake Landers"
+
+    return album_name, names_dict[album_name], title
+
