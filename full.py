@@ -40,6 +40,7 @@ def lastfm():
     nowplaying = response["recenttracks"]["track"][0]
     album_name = nowplaying["album"]["#text"]
     title = nowplaying["name"]
+    artist = nowplaying["artist"]["#text"]
     
     try: 
         playing_status = response["recenttracks"]["track"][0]['@attr']["nowplaying"]
@@ -51,17 +52,17 @@ def lastfm():
     if album_name == "":
         album_name = "Cupcake Landers"
 
-    return album_name, names_dict[album_name], title, playing_status
+    return album_name, names_dict[album_name], title, artist, playing_status
 
 #keep program constantly running
 while True:
     #get new data from last.fm
-    album_name, asset_name, title, playing_status = lastfm()
+    album_name, asset_name, title, artist, playing_status = lastfm()
     sleep(15)
 
     if old_title == "": #edge case
         #update RPC with title of song, playing status, start time, and album art + album name
-        RPC.update(state="{} - {}".format(album_name, title), details="Listening to:",
+        RPC.update(state="By {}".format(artist), details=title,
         large_image=asset_name, large_text=album_name, 
         small_image='lollypop', small_text="Lollypop Music Player")
         old_title = title
@@ -69,7 +70,7 @@ while True:
 
     if old_title != title and playing_status == True:
         #update RPC with title of song, playing status, start time, and album art + album name
-        RPC.update(state="{} - {}".format(album_name, title), details="Listening to:",
+        RPC.update(state="By {}".format(artist), details=title,
         large_image=asset_name, large_text=album_name, 
         small_image='lollypop', small_text="Lollypop Music Player")
         old_title = title
