@@ -61,7 +61,7 @@ while True:
 
     if old_title == "": #edge case
         #update RPC with title of song, playing status, start time, and album art + album name
-        RPC.update(state=title, details="Listening to:",
+        RPC.update(state="{} - {}".format(album_name, title), details="Listening to:",
         large_image=asset_name, large_text=album_name, 
         small_image='lollypop', small_text="Lollypop Music Player")
         old_title = title
@@ -69,7 +69,7 @@ while True:
 
     if old_title != title and playing_status == True:
         #update RPC with title of song, playing status, start time, and album art + album name
-        RPC.update(state=title, details="Listening to:",
+        RPC.update(state="{} - {}".format(album_name, title), details="Listening to:",
         large_image=asset_name, large_text=album_name, 
         small_image='lollypop', small_text="Lollypop Music Player")
         old_title = title
