@@ -12,10 +12,10 @@ load_dotenv()
 
 #otherwise python gets mad
 old_title = ""
-previous_title_old = ""
 old_album = ""
 old_asset = ""
 paused_counter = 0
+playing_status = ""
 
 #connect to discord client
 RPC = Presence(getenv("DISCORD"))
@@ -31,7 +31,7 @@ def lastfm():
         'method': 'user.getrecenttracks',
         'user': str(getenv("LASTFM_USER")),
         'nowplaying': 'true',
-        'limit': '2',
+        'limit': '1',
         'format': 'json'
     }
 
@@ -43,68 +43,74 @@ def lastfm():
     nowplaying = response["recenttracks"]["track"][0]
     album_name = nowplaying["album"]["#text"]
     title = nowplaying["name"]
-    previous_title = response["recenttracks"]["track"][1]["name"]
+    
+    try: 
+        playing_status = response["recenttracks"]["track"][0]['@attr']["nowplaying"]
+    except: playing_status = False
+
+    #print(playing_status)
+
+    if playing_status == "true":
+        playing_status = True
 
     if album_name == "":
         album_name = "Cupcake Landers"
 
-    if previous_title == "":
-        previous_title = "Cupcake Landers"
     
-    print(response)
+    #print(response)
     #print("request completed")
-    return album_name, names_dict[album_name], title, previous_title
+    return album_name, names_dict[album_name], title, playing_status
 
 #keep program constantly running
 while True:
-    sleep(15)
+    #sleep(15)
     #get new data from last.fm
-    album_name, asset_name, title, previous_title = lastfm()
-    print(title)
-    print(old_title)
+    album_name, asset_name, title, playing_status = lastfm()
+    sleep(15)
+    #print(playing_status)
 
     if old_title == "":
         #update RPC with title of song, playing status, start time, and album art + album name
-        RPC.update(state="Listening to {}".format(title), details="Playing", start=time(), 
+        RPC.update(state="Listening to {}".format(title), details="Playing",
         large_image=asset_name, large_text=album_name, 
         small_image='lollypop', small_text="Lollypop Music Player")
         old_title = title
         old_album = album_name
         old_asset = asset_name
-        print("edge case")
+        #print("edge case, old_title is empty") debugging
         continue
 
-    if old_title != title and old_title == previous_title:
+    if old_title != title and playing_status == True:
         #update RPC with title of song, playing status, start time, and album art + album name
-        RPC.update(state="Listening to {}".format(title), details="Playing", start=time(), 
+        RPC.update(state="Listening to {}".format(title), details="Playing",
         large_image=asset_name, large_text=album_name, 
         small_image='lollypop', small_text="Lollypop Music Player")
         old_title = title
         old_album = album_name
         old_asset = asset_name
-        print("new track")
+        #print("new track") debugging
         continue
         
-    elif old_title != title and old_title != previous_title and paused_counter == 20:
+    elif old_title != title and playing_status == False and paused_counter == 5:
         RPC.clear()
         paused_counter = 0
-        print("rich presence stopped")
+        #print("rich presence stopped") debugging
         continue
 
-    elif old_title != title and old_title != previous_title:
+    elif playing_status == False:
         #assume paused track
         #update RPC to reflect paused status
-        RPC.update(state="Listening to {}".format(old_title), details="Paused", end=time(), 
+        RPC.update(state="Listening to {}".format(old_title), details="Paused",
         large_image=old_asset, large_text=old_album, 
         small_image='lollypop', small_text="Lollypop Music Player")
         #iterate paused counter for five minute timeout
         paused_counter = paused_counter + 1
-        print("paused status")
+        #print("paused status") debugging
         continue
 
     #if track is same as track from previous check, do not update
     if old_title == title:
-        print("same track")
+        #print("same track") debugging
         continue
 
     else:
