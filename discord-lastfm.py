@@ -34,7 +34,8 @@ def lastfm():
     names_dict = json_loads(open('names-dict.txt', 'r').read())
 
     response = dict(response.json())
-    nowplaying = response["recenttracks"]["track"][0]
+    try: nowplaying = response["recenttracks"]["track"][0]
+    except: return(1)
     album_name = nowplaying["album"]["#text"]
     title = nowplaying["name"]
     artist = nowplaying["artist"]["#text"]
@@ -58,7 +59,8 @@ def main():
     #keep program constantly running
     while True:
         #get new data from last.fm
-        album_name, asset_name, title, artist, playing_status = lastfm()
+        try: album_name, asset_name, title, artist, playing_status = lastfm()
+        except: continue
         sleep(15)
 
         if old_title == "": #edge case
