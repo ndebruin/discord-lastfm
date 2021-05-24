@@ -10,15 +10,12 @@ from dotenv import load_dotenv
 #load env variables from .env file
 load_dotenv()
 
-#otherwise python gets mad
-old_title = ""
-paused_counter = 0
-
 #connect to discord client
 RPC = Presence(getenv("DISCORD"))
 RPC.connect()
+print("connected")
 
-def lastfm(verbose):
+def lastfm():
     headers = {
         'user-agent': 'currently_playing_viewer'
     }
@@ -41,8 +38,8 @@ def lastfm(verbose):
     album_name = nowplaying["album"]["#text"]
     title = nowplaying["name"]
     artist = nowplaying["artist"]["#text"]
-    
-    try: 
+
+    try:
         playing_status = response["recenttracks"]["track"][0]['@attr']["nowplaying"]
     except: playing_status = False
 
@@ -51,47 +48,50 @@ def lastfm(verbose):
 
     if album_name == "":
         album_name = "Cupcake Landers"
-    
-    if verbose == 1:
-        return response
-    elif verbose == 0:
-        return album_name, names_dict[album_name], title, artist, playing_status
-    else:
-        return album_name, names_dict[album_name], title, artist, playing_status
 
-#keep program constantly running
-while True:
-    #get new data from last.fm
-    album_name, asset_name, title, artist, playing_status = lastfm(0)
-    sleep(15)
+    return album_name, names_dict[album_name], title, artist, playing_status
 
-    if old_title == "": #edge case
-        #update RPC with title of song, playing status, start time, and album art + album name
-        RPC.update(state="By {}".format(artist), details=title,
-        large_image=asset_name, large_text=album_name, 
-        small_image='lollypop', small_text="Lollypop Music Player")
-        old_title = title
-        continue
+def main():
+    #variable
+    old_title = ""
 
-    elif old_title != title and playing_status == True:
-        #update RPC with title of song, playing status, start time, and album art + album name
-        RPC.update(state="By {}".format(artist), details=title,
-        large_image=asset_name, large_text=album_name, 
-        small_image='lollypop', small_text="Lollypop Music Player")
-        old_title = title
-        continue
+    #keep program constantly running
+    while True:
+        #get new data from last.fm
+        album_name, asset_name, title, artist, playing_status = lastfm()
+        sleep(15)
 
-    elif playing_status == False:
-        RPC.clear()
-        continue
+        if old_title == "": #edge case
+            #update RPC with title of song, playing status, start time, and album art + album name
+            RPC.update(state="By {}".format(artist), details=title,
+            large_image=asset_name, large_text=album_name,
+            small_image='lollypop', small_text="Lollypop Music Player")
+            old_title = title
+            continue
 
-    #if track is same as track from previous check, do not update
-    elif old_title == title:
-        continue
+        elif old_title != title and playing_status == True:
+            #update RPC with title of song, playing status, start time, and album art + album name
+            RPC.update(state="By {}".format(artist), details=title,
+            large_image=asset_name, large_text=album_name,
+            small_image='lollypop', small_text="Lollypop Music Player")
+            old_title = title
+            continue
 
-    else:
-        RPC.update(state="By {}".format(artist), details=title,
-        large_image=asset_name, large_text=album_name, 
-        small_image='lollypop', small_text="Lollypop Music Player")
-        old_title = title
-        continue
+        elif playing_status == False:
+            RPC.clear()
+            continue
+
+        #if track is same as track from previous check, do not update
+        elif old_title == title:
+            continue
+
+        else:
+            RPC.update(state="By {}".format(artist), details=title,
+            large_image=asset_name, large_text=album_name,
+            small_image='lollypop', small_text="Lollypop Music Player")
+            old_title = title
+            continue
+
+
+if __name__ == '__main__':
+    main()
